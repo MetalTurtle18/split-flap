@@ -269,7 +269,8 @@ int calibrate(bool initialCalibration) {
     else {
       //reached marker, go to calibrated offset position
       reachedMarker = true;
-      stepper.step(ROTATIONDIRECTION * calOffset);
+      if (i != 0) // If this is the first round of the loop, then the unit was already homed and could be disrupted by moving the offset
+        stepper.step(ROTATIONDIRECTION * calOffset);
       displayedLetter = 0;
       missedSteps = 0;
 #ifdef serial
